@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FilmsController !{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 d-flex justify-content-around flex-wrap">
+
+            {% for films in pagination %}
+            <div class="card">
+                
+                <div class="card-header">
+                    Ajouté le {{ films.date | date("d/m/Y") }}
+                </div>
+                {% if films.image %}
+                    <img src="{{ vich_uploader_asset(films, 'imageFile')|imagine_filter('square') }}" class="card-img-top">
+                {% else %}
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ films.name }}</h5>
+                    <p class="card-text">{{ films.synopsis }}</p>
+                </div>
+                <div class="card-footer">Producteur : {{ films.producteur }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="container d-flex justify-content-around mt-4">
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>
+{% endblock %}
